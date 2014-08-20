@@ -34,6 +34,12 @@ namespace MangaCenterFromScratch
             InitializeComponent();
             //DefaultOptions.Instance.DirectoryPath = @"C:\Users\Dess\Desktop\manga";
 
+
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\MangaLibrary"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\MangaLibrary");
+            }
+
             DefaultOptions.Instance.DirectoryPath = Directory.GetCurrentDirectory() + @"\MangaLibrary";
 
             extractor = new DataExtractor();
