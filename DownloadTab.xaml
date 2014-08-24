@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="MangaCenterFromScratch.DownloadTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MangaCenterFromScratch.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:MangaReaderDownloader x:Key="MangaDownloader"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource MangaDownloader}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Download Link">
+            <DockPanel>
+                <TextBlock  Width="220" DockPanel.Dock="Left"
+                                Text="To download specific manga/manga chapter, you need to provide an URL link to first page of the manga/manga chapter on mangareader.net:"/>
+                <TextBox Name="DownloadLink" TextWrapping="Wrap" DockPanel.Dock="Right" />
+            </DockPanel>
+        </GroupBox>
+
+        <!--<GroupBox Grid.Column="1" Header="Download Mode" Margin="5" BorderBrush="Firebrick">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <RadioButton IsChecked="True">Entire Manga</RadioButton>
+                            <RadioButton>Single Chapter</RadioButton>
+                            <RadioButton>Check for new Chapters</RadioButton>
+                        </StackPanel>
+                    </GroupBox>-->
+
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Download Location">
+            <DockPanel>
+                <TextBlock Text="Please specify the location directory for your manga library:" Width="200"/>
+                <TextBox Name="LocationBox" Text="{Binding Source={x:Static local:DefaultOptions.Instance}, Path=DirectoryPath}"
+                                     Width="400" VerticalContentAlignment="Center" />
+                <Button Content="Choose Location." IsEnabled="False" />
+            </DockPanel>
+        </GroupBox>
+
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="START DOWNLOADING" Click="Button_Click"/>
+
+
+        <TextBox x:Name="infoBox" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding infoString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="5,5,5,5" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
+
+    </Grid>
+</UserControl>
