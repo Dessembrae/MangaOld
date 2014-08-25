@@ -106,6 +106,7 @@
     <Compile Include="Model\DefaultOptions.cs" />
     <Compile Include="Model\Manga.cs" />
     <Compile Include="Model\MangaReaderDownloader.cs" />
+    <Compile Include="Model\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
