@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MangaCenterFromScratch.Model
 {
-    public sealed class DefaultOptions : INotifyPropertyChanged
+    public sealed class DefaultOptions : ViewModelBase, INotifyPropertyChanged
     {
         public static string _DirectoryPath { get; set; }
         public string DirectoryPath
@@ -18,14 +18,5 @@ namespace MangaCenterFromScratch.Model
 
         private static DefaultOptions _instance = new DefaultOptions();
         public static DefaultOptions Instance { get { return _instance; } } 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-        }
     }
 }

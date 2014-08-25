@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 
 namespace MangaCenterFromScratch.Model
 {
-    public abstract class BaseMangaDownloader : INotifyPropertyChanged
+    public abstract class BaseMangaDownloader : ViewModelBase, INotifyPropertyChanged
     {
         protected HtmlWeb getHtmlWeb = new HtmlWeb();
         protected HtmlDocument document { get; set; }
@@ -35,16 +35,6 @@ namespace MangaCenterFromScratch.Model
         }
 
         protected bool initializationException { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-        }
 
         public void setProperties(string mangaURL)
         {
