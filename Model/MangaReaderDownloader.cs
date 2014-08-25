@@ -18,26 +18,31 @@ namespace MangaCenterFromScratch.Model
         {
             if (!initializationException)
             {
-                extractMangaName();
-                while (extractMangaChapter())
-                {
-                    //selecting div which holds image and link to next URL
-                    HtmlNode imgDiv = document.DocumentNode.SelectSingleNode("//img[@id='img']");
-
-                    string imgLink = extractImageLink(imgDiv);
-                    string nextURL = extractNextPageLink(imgDiv);
-                    string filename = String.Format(@"{0}\{1}\{2}{3}", 
-                        localMangaPath, currentChapterNumber, currentPageNumber, Path.GetExtension(imgLink));
-
-                    downloadImage(imgLink, filename); 
-                    
-                    mangaURL = nextURL;
-                    initParser(mangaURL);
-
-                    currentPageNumber++;
-                }
-                InfoString = "Manga has ended.\n" + InfoString;
+                Download();
             }
+        }
+
+        private void Download()
+        {
+            extractMangaName();
+            while (extractMangaChapter())
+            {
+                //selecting div which holds image and link to next URL
+                HtmlNode imgDiv = document.DocumentNode.SelectSingleNode("//img[@id='img']");
+
+                string imgLink = extractImageLink(imgDiv);
+                string nextURL = extractNextPageLink(imgDiv);
+                string filename = String.Format(@"{0}\{1}\{2}{3}",
+                    localMangaPath, currentChapterNumber, currentPageNumber, Path.GetExtension(imgLink));
+
+                downloadImage(imgLink, filename);
+
+                mangaURL = nextURL;
+                initParser(mangaURL);
+
+                currentPageNumber++;
+            }
+            InfoString = "Manga has ended.\n" + InfoString;
         }
 
         private string extractImageLink(HtmlNode imgDiv)
@@ -56,22 +61,17 @@ namespace MangaCenterFromScratch.Model
         {
             var chapterDiv = document.DocumentNode.SelectSingleNode("//img[@id='img']");
             string altAtt = null;
-            if (chapterDiv != null)
-            {
-                altAtt = chapterDiv.Attributes["alt"].Value.ToString();
-            }
-            else
-            {
+            if (chapterDiv == null)
                 return false;
-            }                
+            else
+                altAtt = chapterDiv.Attributes["alt"].Value.ToString(); 
 
             string chapterNumberGarbage = altAtt.Remove(0, mangaName.Count());
             string[] tempString = chapterNumberGarbage.Split('-');
 
             currentChapterNumber = "Chapter " + tempString[0].Trim();
             createDirectory(currentChapterNumber);
-            return true;
-        
+            return true;        
         }
 
         
