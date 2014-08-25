@@ -49,7 +49,7 @@
         <Button Grid.Row="2" Grid.ColumnSpan="2" Content="START DOWNLOADING" Click="Button_Click"/>
 
 
-        <TextBox x:Name="infoBox" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding infoString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox x:Name="InfoBox" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding InfoString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Margin="5,5,5,5" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
 
     </Grid>

@@ -9,11 +9,6 @@ namespace MangaCenterFromScratch.Model
 {
     public sealed class DefaultOptions : INotifyPropertyChanged
     {
-        private DefaultOptions()
-        {
-
-        }
-
         public static string _DirectoryPath { get; set; }
         public string DirectoryPath
         {
@@ -21,8 +16,8 @@ namespace MangaCenterFromScratch.Model
             set { _DirectoryPath = value; OnPropertyChanged("DirectoryPath"); }
         }
 
-        private static DefaultOptions _Instance = new DefaultOptions();
-        public static DefaultOptions Instance { get { return _Instance; } } 
+        private static DefaultOptions _instance = new DefaultOptions();
+        public static DefaultOptions Instance { get { return _instance; } } 
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propName)

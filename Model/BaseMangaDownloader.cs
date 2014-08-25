@@ -16,20 +16,25 @@ namespace MangaCenterFromScratch.Model
 {
     public abstract class BaseMangaDownloader : INotifyPropertyChanged
     {
-        protected HtmlWeb getHtmlWeb { get; set; }
+        protected HtmlWeb getHtmlWeb = new HtmlWeb();
         protected HtmlDocument document { get; set; }
-        protected string directoryAndMangaPath { get; set; }
-        protected string mangaPath { get; set; }
+
+        protected string localMangaPath { get; set; }
+        protected string mangaURL { get; set; }
+
         protected string mangaName { get; set; }
-        protected string chapterNumber { get; set; }
-        protected int pageNumber { get; set; }
-        protected bool initializationException { get; set; }
-        public String InfoString;
-        public String infoString
+
+        protected string currentChapterNumber { get; set; }
+        protected int currentPageNumber { get; set; }
+        
+        private string _infoString;
+        public string InfoString
         {
-            get { return InfoString; }
-            set { InfoString = value; this.OnPropertyChanged("infoString"); }
+            get { return _infoString; }
+            set { this._infoString = value; this.OnPropertyChanged("InfoString"); }
         }
+
+        protected bool initializationException { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,16 +46,15 @@ namespace MangaCenterFromScratch.Model
             }
         }
 
-        public void setProperties(string mangaPath)
+        public void setProperties(string mangaURL)
         {
             try
             {
                 initializationException = true;
 
-                pageNumber = 1;
-                this.mangaPath = mangaPath;
-                getHtmlWeb = new HtmlWeb();
-                initParser(this.mangaPath);
+                currentPageNumber = 1;
+                this.mangaURL = mangaURL;
+                initParser(this.mangaURL);
 
                 initializationException = false;
             }
@@ -65,8 +69,9 @@ namespace MangaCenterFromScratch.Model
             using (WebClient wb = new WebClient())
             {
                 wb.DownloadFile(url, filename);
-                
-                Console.WriteLine("Page " + pageNumber + " of " + chapterNumber + " chapter has been downloaded.");
+                //InfoString = "Page " + currentPageNumber + " of " + currentChapterNumber + " chapter has been downloaded.\n" + InfoString;
+                InfoString = String.Format("Page {0} of {1} chapter has been downloaded.\n{2}", currentPageNumber, currentChapterNumber, InfoString);
+                //Console.WriteLine("Page " + currentPageNumber + " of " + currentChapterNumber + " chapter has been downloaded.");
             }
         }
 
@@ -75,27 +80,19 @@ namespace MangaCenterFromScratch.Model
             document = getHtmlWeb.Load(mangaPath);
         }
 
-        protected void createDirectory()
+        protected void createDirectory(string concat = "")
         {
-            if (!Directory.Exists(directoryAndMangaPath))
-            {
-                Directory.CreateDirectory(directoryAndMangaPath);
-            }
-        }
+            if (!String.IsNullOrEmpty(concat))
+                concat = @"\" + concat;
 
-        protected void createDirectory(string concat)
-        {
-            if (!Directory.Exists(directoryAndMangaPath + @"\" + concat))
+            if (!Directory.Exists(localMangaPath + concat))
             {
-                pageNumber = 1; //when creating new chapter directory, page number resets itself to zero.
-                Directory.CreateDirectory(directoryAndMangaPath + @"\" + concat);
+                currentPageNumber = 1; //when creating new chapter directory, page number resets itself to zero.
+                Directory.CreateDirectory(localMangaPath + concat);
             }
         }
 
         public abstract void StartDownloading();
-        protected abstract void gettingMangaName();
-
-        
-
+        protected abstract void extractMangaName();
     }
 }

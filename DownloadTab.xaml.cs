@@ -40,7 +40,7 @@ namespace MangaCenterFromScratch
             }
 
             MangaDownloader = new MangaReaderDownloader();
-            infoBox.DataContext = MangaDownloader;
+            InfoBox.DataContext = MangaDownloader;
             MangaDownloader.setProperties(DownloadLink.Text);
 
             worker = new BackgroundWorker();

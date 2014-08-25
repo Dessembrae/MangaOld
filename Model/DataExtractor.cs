@@ -10,23 +10,19 @@ namespace MangaCenterFromScratch.Model
     public class DataExtractor
     {
         public List<Manga> mangas = new List<Manga>();
+        private string directory = DefaultOptions.Instance.DirectoryPath;
 
-        public void enumerateMainDirectory()
+        public void findAllMangas()
         {
             mangas.Clear();
-            string[] list = Directory.GetDirectories(DefaultOptions.Instance.DirectoryPath);
-            Console.WriteLine(list.Count());
-            foreach (string d in list)
+            string[] mangaList = Directory.GetDirectories(directory);
+            foreach (string title in mangaList)
             {
-                //Console.WriteLine(d);
                 Manga manga = new Manga();
-                manga.name = Path.GetFileName(d);
+                manga.name = Path.GetFileName(title);
 
-                string[] listOfChapters = Directory.GetDirectories(d + @"\");
-                foreach (string chapter in listOfChapters)
-                {
-                    manga.mangaChapters.Add(chapter);
-                }
+                string[] listOfChapters = Directory.GetDirectories(title + @"\");
+                manga.setChapterList(listOfChapters);
                 mangas.Add(manga);
             }
         }

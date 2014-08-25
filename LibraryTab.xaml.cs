@@ -46,7 +46,7 @@ namespace MangaCenterFromScratch
             else
                 mangaList.Clear();
 
-            extractor.enumerateMainDirectory();
+            extractor.findAllMangas();
             foreach (Manga manga in extractor.mangas)
             {
                 mangaList.Add(manga);

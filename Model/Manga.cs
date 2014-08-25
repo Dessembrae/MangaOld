@@ -16,6 +16,14 @@ namespace MangaCenterFromScratch.Model
             get { return mangaChapters.Count(); }
         }
 
+        public void setChapterList(string[] listOfChapters)
+        {
+            foreach (string chapter in listOfChapters)
+            {
+                mangaChapters.Add(chapter);
+            }
+        }
+
         public override string ToString()
         {
             return "Name of the manga: " + name + ", with " + chaptersCount + ((chaptersCount == 1) ? " chapter." : " chapters.");
