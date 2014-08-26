@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 
 namespace MangaCenterFromScratch.Model
 {
-    public abstract class BaseMangaDownloader : ViewModelBase, INotifyPropertyChanged
+    public abstract class BaseMangaDownloader : ViewModelBase
     {
         protected HtmlWeb getHtmlWeb = new HtmlWeb();
         protected HtmlDocument document { get; set; }

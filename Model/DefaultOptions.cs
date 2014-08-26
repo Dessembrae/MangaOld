@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MangaCenterFromScratch.Model
 {
-    public sealed class DefaultOptions : ViewModelBase, INotifyPropertyChanged
+    public sealed class DefaultOptions : ViewModelBase
     {
         public static string _DirectoryPath { get; set; }
         public string DirectoryPath

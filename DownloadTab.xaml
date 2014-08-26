@@ -39,10 +39,10 @@
 
         <GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Download Location">
             <DockPanel>
-                <TextBlock Text="Please specify the location directory for your manga library:" Width="200"/>
+                <TextBlock Text="Location of your manga library:"/>
                 <TextBox Name="LocationBox" Text="{Binding Source={x:Static local:DefaultOptions.Instance}, Path=DirectoryPath}"
-                                     Width="400" VerticalContentAlignment="Center" />
-                <Button Content="Choose Location." IsEnabled="False" />
+                                     VerticalContentAlignment="Center" />
+                <!--<Button Content="Choose Location." IsEnabled="False" />-->
             </DockPanel>
         </GroupBox>
 
